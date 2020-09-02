@@ -63,14 +63,12 @@ export class UsuarioService {
         },
       })
       .pipe(
-        tap((resp: any) => {
+        map((resp: any) => {
           localStorage.setItem('token', resp.token);
-
-          const { nombre, email, img, google, role, uid } = resp.usuario;
-
+          const { nombre, email, img = '', google, role, uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+          return true;
         }),
-        map((resp) => true),
         catchError((error) => of(false))
       );
   }
