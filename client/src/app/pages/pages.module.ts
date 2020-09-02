@@ -36,14 +36,15 @@ import { PerfilComponent } from './perfil/perfil.component';
     Grafica1Component,
     PagesComponent,
     AccountSettingsComponent,
-    ReactiveFormsModule
+
   ],
   imports: [
     CommonModule,
-    FormsModule,
     SharedModule,
     RouterModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

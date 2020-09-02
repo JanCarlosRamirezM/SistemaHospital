@@ -2,14 +2,21 @@
   <div class="col-lg-6">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Sample Form with the Icons</h4>
-        <h6 class="card-subtitle">made with bootstrap elements</h6>
-        <form class="form p-t-20">
+        <h4 class="card-title">Mi perfil de usuario</h4>
+        <h6 class="card-subtitle">Ajuntes</h6>
+
+        <form
+          class="form p-t-20"
+          [formGroup]="perfilForm"
+          (ngSubmit)="actualizarPerfil()"
+        >
           <div class="form-group">
             <label for="exampleInputuname">User Name</label>
             <div class="input-group">
               <div class="input-group-addon"><i class="ti-user"></i></div>
+
               <input
+                formControlName="nombre"
                 type="text"
                 class="form-control"
                 id="exampleInputuname"
@@ -22,6 +29,8 @@
             <div class="input-group">
               <div class="input-group-addon"><i class="ti-email"></i></div>
               <input
+                [readOnly]="usuario.google"
+                formControlName="email"
                 type="email"
                 class="form-control"
                 id="exampleInputEmail1"
@@ -33,9 +42,10 @@
           <button
             type="submit"
             class="btn btn-success btn-block waves-effect waves-light m-r-10"
+            [disabled]="perfilForm.invalid"
           >
             <i class="fa fa-save"></i>
-            Guardar imagen
+            Guardar cambios
           </button>
         </form>
       </div>
@@ -45,12 +55,37 @@
   <div class="col-lg-6">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Sample Form with the Icons</h4>
+        <h4 class="card-title">Avatar</h4>
+        <h6 class="card-subtitle">Imagen del usuario</h6>
 
-        <img src="" alt="" />
-        <input type="file" name="" id="" />
+        <div class="text-center mb-5">
+          <img
+            *ngIf="!imgTemp"
+            width="500"
+            height="500"
+            class="img-fluid"
+            [src]="usuario.imagenUrl"
+          />
+
+          <img
+            *ngIf="imgTemp"
+            width="500"
+            height="500"
+            class="img-fluid"
+            [src]="imgTemp"
+          />
+        </div>
+
+        <input
+          (change)="cambiarImagen($event.target.files[0])"
+          type="file"
+          name=""
+          id=""
+        />
 
         <button
+          [disabled]="!imagenSubir"
+          (click)="subirImagen()"
           type="submit"
           class="mt-5 btn btn-success btn-block waves-effect waves-light m-r-10"
         >

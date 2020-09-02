@@ -14,7 +14,7 @@ export class Usuario {
   ) {}
 
   get imagenUrl() {
-    if (this.google) {
+    if (this.img.includes('https')) {
       return this.img;
     }
     if (this.img) {

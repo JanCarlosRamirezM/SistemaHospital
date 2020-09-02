@@ -53,13 +53,19 @@ export class UsuarioService {
     });
   }
 
-  validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
+  get getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
 
+  get getUsuarioUID(): string {
+    return this.usuario.uid || '';
+  }
+
+  validarToken(): Observable<boolean> {
     return this.http
       .get(`${base_url}/login/renew`, {
         headers: {
-          'x-token': token,
+          'x-token': this.getToken,
         },
       })
       .pipe(
@@ -79,6 +85,19 @@ export class UsuarioService {
         localStorage.setItem('token', resp.token);
       })
     );
+  }
+
+  actualizarPerfil(data: { email: string; nombre: string; role: string }) {
+    data = {
+      ...data,
+      role: this.usuario.role,
+    };
+
+    return this.http.put(`${base_url}/usuarios/${this.getUsuarioUID}`, data, {
+      headers: {
+        'x-token': this.getToken,
+      },
+    });
   }
 
   login(formData: LoginForm) {

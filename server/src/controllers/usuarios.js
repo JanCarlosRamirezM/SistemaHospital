@@ -8,7 +8,7 @@ const getUsuarios = async (req, res) => {
 	const hasta = Number(req.query.hasta) || 0;
 
 	const [usuarios, total] = await Promise.all([
-		Usuario.find({}, 'nombre email role google').skip(desde).limit(hasta),
+		Usuario.find({}, 'nombre email role google img').skip(desde).limit(hasta),
 		Usuario.countDocuments(),
 	]);
 	res.status(200).json({
@@ -72,9 +72,14 @@ const actualizarUsuario = async (req, res = response) => {
 				});
 			}
 		}
-
-		campos.email = email;
-
+		if (!usuarioDB.google) {
+			campos.email = email;
+		} else if (usuarioDB.email !== email) {
+			res.status(500).json({
+				ok: false,
+				msg: 'Usuario de google no pueden cambiar su correo',
+			});
+		}
 		const usuarioActualizado = await Usuario.findOneAndUpdate(uid, campos, { new: true });
 
 		res.status(200).json({

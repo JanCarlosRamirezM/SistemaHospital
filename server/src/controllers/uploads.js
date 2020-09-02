@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { actualizarImagen } = require('../helpers/actualizarImagen');
 const path = require('path');
-const   fs   = require('fs');
+const fs = require('fs');
 
 const fileUpload = (req, res) => {
 	const { tipo, id } = req.params;
@@ -57,6 +57,7 @@ const fileUpload = (req, res) => {
 		res.status(200).json({
 			ok: true,
 			msg: 'Archivo subido',
+			img: nombreArchivo,
 		});
 	});
 };
