@@ -1,3 +1,4 @@
+import { IcargarUsuarios } from './../interfaces/cargar-usuarios.interface';
 import { Usuario } from './../models/usuario.model';
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -61,6 +62,14 @@ export class UsuarioService {
     return this.usuario.uid || '';
   }
 
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.getToken,
+      },
+    };
+  }
+
   validarToken(): Observable<boolean> {
     return this.http
       .get(`${base_url}/login/renew`, {
@@ -112,6 +121,30 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
+      })
+    );
+  }
+
+  cargarUsuarios(desde: number = 0, hasta: number = 5) {
+    const url = `${base_url}/usuarios?desde=${desde}&hasta=${hasta}`;
+    return this.http.get<IcargarUsuarios>(url, this.headers).pipe(
+      map((resp) => {
+        const usuarios = resp.usuarios.map(
+          (user) =>
+            new Usuario(
+              user.nombre,
+              user.email,
+              '',
+              user.img,
+              user.google,
+              user.role,
+              user.uid
+            )
+        );
+        return {
+          total: resp.total,
+          usuarios,
+        };
       })
     );
   }
