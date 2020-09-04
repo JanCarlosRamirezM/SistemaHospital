@@ -20,8 +20,21 @@
 .w100 {
   width: 100px;
 }
+.w140 {
+  width: 140;
+}
 
 .avatar {
   width: 50px;
   border-radius: 100%;
+}
+
+.fondo-modal-imagen {
+  background-color: rgba(0, 0, 0, 0.4);
+  left: 0;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 999;
 }

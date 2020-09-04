@@ -80,7 +80,7 @@ const actualizarUsuario = async (req, res = response) => {
 				msg: 'Usuario de google no pueden cambiar su correo',
 			});
 		}
-		const usuarioActualizado = await Usuario.findOneAndUpdate(uid, campos, { new: true });
+		const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 
 		res.status(200).json({
 			ok: true,

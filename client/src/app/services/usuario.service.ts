@@ -2,7 +2,7 @@ import { IcargarUsuarios } from './../interfaces/cargar-usuarios.interface';
 import { Usuario } from './../models/usuario.model';
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import Swal from 'sweetalert2';
 
 const base_url = environment.base_url;
 
@@ -102,11 +103,11 @@ export class UsuarioService {
       role: this.usuario.role,
     };
 
-    return this.http.put(`${base_url}/usuarios/${this.getUsuarioUID}`, data, {
-      headers: {
-        'x-token': this.getToken,
-      },
-    });
+    return this.http.put(
+      `${base_url}/usuarios/${this.getUsuarioUID}`,
+      data,
+      this.headers
+    );
   }
 
   login(formData: LoginForm) {
@@ -146,6 +147,19 @@ export class UsuarioService {
           usuarios,
         };
       })
+    );
+  }
+
+  eliminarUsuario(usuario: Usuario) {
+    const url = `${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete(url, this.headers);
+  }
+
+  actualizarUsuario(data: Usuario) {
+    return this.http.put(
+      `${base_url}/usuarios/${data.uid}`,
+      data,
+      this.headers
     );
   }
 }
