@@ -1,11 +1,12 @@
-import { BusquedasService } from './../../../services/busquedas.service';
-import { Usuario } from './../../../models/usuario.model';
-import { UsuarioService } from './../../../services/usuario.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import Swal from 'sweetalert2';
-import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+
+import { BusquedasService } from './../../../services/busquedas.service';
+import { ModalImagenService } from 'src/app/services/modal-imagen.service';
+import { UsuarioService } from './../../../services/usuario.service';
+import { Usuario } from './../../../models/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -60,16 +61,15 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargarUsuarios();
   }
 
-  buscar(terminoBusqueda: string) {
-    if (terminoBusqueda.length === 0) {
+  buscar(termino: string) {
+    if (termino.length === 0) {
       return (this.usuarios = this.usuariosTemp);
     }
-    console.log(terminoBusqueda);
 
     this.busquedasService
-      .buscar('usuarios', terminoBusqueda)
-      .subscribe((resultados) => {
-        this.usuarios = resultados;
+      .buscar('usuarios', termino)
+      .subscribe((resp: Usuario[]) => {
+        this.usuarios = resp;
       });
   }
 

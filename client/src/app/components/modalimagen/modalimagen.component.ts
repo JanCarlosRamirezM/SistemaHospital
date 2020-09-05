@@ -13,13 +13,10 @@ import Swal from 'sweetalert2';
 })
 export class ModalimagenComponent implements OnInit {
   public imagenSubir: File;
-  public usuario: Usuario;
   public imgTemp: any = null;
 
   constructor(
     public modalImagenService: ModalImagenService,
-    private fb: FormBuilder,
-    private usuarioService: UsuarioService,
     private fileUploadService: FileUploadService
   ) {}
 
@@ -49,6 +46,7 @@ export class ModalimagenComponent implements OnInit {
       .then((img) => {
         this.modalImagenService.cerrarModal();
         this.modalImagenService.nuevaImagen.emit(img);
+        this.imgTemp = null;
       })
       .catch((err) => {
         Swal.fire('Error', err.error.msg, 'error');
