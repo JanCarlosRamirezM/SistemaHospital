@@ -1,5 +1,6 @@
 require('dotenv').config('env');
 const express = require('express');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 var bodyParser = require('body-parser');
@@ -26,5 +27,11 @@ app.use('/api/todo', require('./routers/busquedas'));
 app.use('/api/upload', require('./routers/uploads'));
 app.use('/api/login', require('./routers/login'));
 
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
+
 // Listen APP
-app.listen(process.env.NODE_PORT, () => console.log(`SERVER ONLINE!!`, process.env.NODE_PORT));
+app.listen(process.env.PORT || process.env.NODE_PORT, () =>
+	console.log(`SERVER ONLINE!!`, process.env.PORT || process.env.NODE_PORT)
+);
