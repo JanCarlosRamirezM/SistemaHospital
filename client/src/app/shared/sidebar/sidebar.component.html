@@ -18,7 +18,9 @@
             </span></a
           >
           <ul aria-expanded="false" class="collapse">
-            <li><a routerLinkActive="active" routerLink="./perfil">My Profile </a></li>
+            <li>
+              <a routerLinkActive="active" routerLink="./perfil">My Profile </a>
+            </li>
             <li><a routerLink="account-settings">Account Setting</a></li>
             <li><a routerLink="/login">Logout</a></li>
           </ul>
@@ -26,7 +28,7 @@
         <li class="nav-devider"></li>
         <li class="nav-small-cap">PERSONAL</li>
 
-        <li *ngFor="let item of menuItems">
+        <li *ngFor="let item of sidebarService.menu">
           <a
             class="has-arrow waves-effect waves-dark"
             href="#"

@@ -3,6 +3,7 @@ const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 const { googleVerify } = require('../helpers/google-verifyId');
+const { getMenu } = require('../helpers/menu-user');
 
 const login = async (req, res = response) => {
 	try {
@@ -28,6 +29,7 @@ const login = async (req, res = response) => {
 		res.json({
 			ok: true,
 			token,
+			menu: getMenu(usuarioDB.role),
 		});
 	} catch (error) {
 		console.log(error);
@@ -65,6 +67,7 @@ const googleSigIn = async (req, res = response) => {
 		res.json({
 			ok: true,
 			token,
+			menu: getMenu(usuario.role),
 		});
 	} catch (error) {
 		console.log(error);
@@ -86,6 +89,7 @@ const renewToken = async (req, res = response) => {
 		ok: true,
 		token,
 		usuario,
+		menu: getMenu(usuario.role),
 	});
 };
 

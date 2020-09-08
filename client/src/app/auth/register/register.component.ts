@@ -34,7 +34,6 @@ export class RegisterComponent {
 
   crearUsuario() {
     this.formSubmitted = true;
-    console.log(this.registerForm.value);
 
     if (this.registerForm.invalid) {
       return;
@@ -48,6 +47,8 @@ export class RegisterComponent {
       },
       (err) => {
         // Si sucede un error
+        console.log(err);
+
         Swal.fire('Error', err.error.msg, 'error');
       }
     );

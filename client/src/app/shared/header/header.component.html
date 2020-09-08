@@ -76,11 +76,12 @@
             href="javascript:void(0)"
             ><i class="ti-search"></i
           ></a>
-          <form class="app-search">
+          <form class="app-search" (ngSubmit)="busquedaGeneral(termino.value)">
             <input
               type="text"
               class="form-control"
-              placeholder="Search & enter"
+              placeholder="Busca usuarios, hospitales o medicos..."
+              #termino
             />
             <a class="srh-btn"><i class="ti-close"></i></a>
           </form>
@@ -339,9 +340,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a  routerLink="perfil"
-                  ><i class="ti-user"></i> My Profile</a
-                >
+                <a routerLink="perfil"><i class="ti-user"></i> My Profile</a>
               </li>
               <li role="separator" class="divider"></li>
               <li>
