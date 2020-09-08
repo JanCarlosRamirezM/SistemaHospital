@@ -64,12 +64,12 @@ const fileUpload = (req, res) => {
 
 const retornarImagen = (req, res) => {
 	const { tipo, foto } = req.params;
-	const pathImg = path.join(__dirname, `../uploads/${tipo}/${foto}`);
+	const pathImg = path.join(__dirname, `./../uploads/${tipo}/${foto}`);
 
 	if (fs.existsSync(pathImg)) {
 		res.sendFile(pathImg);
 	} else {
-		const pathImg = path.join(__dirname, `../uploads/no-img.jpg`);
+		const pathImg = path.join(__dirname, `./../uploads/no-img.jpg`);
 		res.sendFile(pathImg);
 	}
 };

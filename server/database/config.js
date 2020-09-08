@@ -1,5 +1,3 @@
-require('dotenv').config({ path: __dirname + '../../../.env' });
-
 const mongoose = require('mongoose');
 
 const dbConnection = async () => {
@@ -8,7 +6,7 @@ const dbConnection = async () => {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,
-			useFindAndModify:false
+			useFindAndModify: false,
 		});
 
 		console.log('DB ONLINE!');
